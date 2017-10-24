@@ -1,8 +1,8 @@
-var express = require('express');
+import express = require('express');
 
 var app = express();
 
-app.get('/', function(req, res){
+app.get('/', function(req: express.Request, res: express.Response){
     res.send('hello world');
 });
 

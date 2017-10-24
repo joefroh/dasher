@@ -1,11 +1,22 @@
 var gulp = require('gulp');
-var exec = require('gulp-exec');
+var ts = require('gulp-typescript');
 var clean = require('gulp-clean');
+var runSequence = require('run-sequence');
+
+var tsProject = ts.createProject("tsconfig.json");
 
 gulp.task('default', function(){
-    return exec('tsc *.ts');
+   return runSequence('clean','build');
 });
 
+//Build the TS
+gulp.task('build', function(){
+    return tsProject.src()
+        .pipe(tsProject())
+        .js.pipe(gulp.dest("bin"));
+});
+
+//Clean the build folder
 gulp.task('clean', function(){
     return gulp.src('./bin', {read: false})
         .pipe(clean());
